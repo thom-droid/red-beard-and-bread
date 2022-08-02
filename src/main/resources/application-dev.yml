@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/red_beard_and_bread_dev?allowPublicKeyRetrieval=true
+    username: red-beard
+    password: 1111
+  jpa:
+    hibernate:
+      ddl-auto: create-drop  # (1) ??? ?? ??
+    show-sql: true      # (2) SQL ?? ??
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    properties:
+      hibernate:
+        format_sql: true  # (3) SQL pretty print
