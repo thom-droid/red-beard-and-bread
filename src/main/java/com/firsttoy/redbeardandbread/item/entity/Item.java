@@ -50,6 +50,10 @@ public class Item extends Auditable {
     @ManyToMany(mappedBy = "items")
     private Set<User> users = new HashSet<>();
 
+    @Builder.Default
+    @OneToMany(mappedBy = "item")
+    private List<ItemOption> itemOptions;
+
     @Getter
     public enum ItemCategory {
         BREAD(1, "식빵 및 단팥빵"),
