@@ -47,15 +47,19 @@ public class Item extends Auditable {
     @Column(nullable = false)
     private int point;
 
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
+    @Enumerated(EnumType.STRING)
     private Category category;
 
     private int likeHitCount;
     private int saleScore;
     private boolean isSpeciallyOffered;
-    private boolean isCouponApplicable;
 
     @Builder.Default
+    private boolean isCouponApplicable = true;
+
+    @Builder.Default
+    @Enumerated(EnumType.STRING)
     private SaleStatus salesStatus = SaleStatus.ON_SALE;
 
     @ManyToOne
@@ -67,7 +71,7 @@ public class Item extends Auditable {
     private Set<User> users = new HashSet<>();
 
     @Builder.Default
-    @OneToMany(mappedBy = "item")
+    @OneToMany(mappedBy = "item", cascade = CascadeType.PERSIST)
     private List<ItemOption> itemOptions = new LinkedList<>();
 
     @Getter
