@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -27,17 +28,32 @@ public class Item extends Auditable {
     //Todo : unique
     @Column(updatable = false)
     private String name;
+
+    @Column(nullable = false)
     private String title;
+
+    @Column(nullable = false)
     private String thumbnail;
+
+    @Column(nullable = false)
     private String descriptionImage;
+
+    @Column(nullable = false)
     private int price;
+
+    @Column(nullable = false)
     private int stock;
+
+    @Column(nullable = false)
     private int point;
+
+    @Column(nullable = false)
+    private ItemCategory category;
+
     private int likeHitCount;
     private int saleScore;
     private boolean isSpeciallyOffered;
     private boolean isCouponApplicable;
-    private ItemCategory category;
 
     @Builder.Default
     private SaleStatus salesStatus = SaleStatus.ON_SALE;
@@ -52,7 +68,7 @@ public class Item extends Auditable {
 
     @Builder.Default
     @OneToMany(mappedBy = "item")
-    private List<ItemOption> itemOptions;
+    private List<ItemOption> itemOptions = new LinkedList<>();
 
     @Getter
     public enum ItemCategory {
