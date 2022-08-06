@@ -48,7 +48,7 @@ public class Item extends Auditable {
     private int point;
 
     @Column(nullable = false)
-    private ItemCategory category;
+    private Category category;
 
     private int likeHitCount;
     private int saleScore;
@@ -71,7 +71,7 @@ public class Item extends Auditable {
     private List<ItemOption> itemOptions = new LinkedList<>();
 
     @Getter
-    public enum ItemCategory {
+    public enum Category {
         BREAD(1, "식빵 및 단팥빵"),
         CAKE(2, "케이크 및 디저트"),
         SALAD(3, "사라다"),
@@ -81,7 +81,7 @@ public class Item extends Auditable {
         private final int code;
         private final String desc;
 
-        ItemCategory(int code, String desc) {
+        Category(int code, String desc) {
             this.code = code;
             this.desc = desc;
         }
