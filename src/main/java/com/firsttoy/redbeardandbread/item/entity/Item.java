@@ -3,10 +3,8 @@ package com.firsttoy.redbeardandbread.item.entity;
 import com.firsttoy.redbeardandbread.audit.Auditable;
 import com.firsttoy.redbeardandbread.special_offer.entity.SpecialOffer;
 import com.firsttoy.redbeardandbread.user.entity.User;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.firsttoy.redbeardandbread.utils.StringUtils;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -54,6 +52,10 @@ public class Item extends Auditable {
     private int likeHitCount;
     private int saleScore;
     private boolean isSpeciallyOffered;
+
+    @Setter
+    @Column(updatable = false, nullable = false, unique = true, length = 4)
+    private String code;
 
     @Builder.Default
     private boolean isCouponApplicable = true;

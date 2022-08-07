@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -37,6 +38,11 @@ public class ItemPostDto {
 
     @Positive
     private int point;
+
+    //Todo : custom validator
+    @NotEmpty(message = "4글자 영어 대문자여야 합니다")
+    @Length(min = 4, max = 4)
+    private String code;
 
     @NotEmpty
     private Item.Category category;
