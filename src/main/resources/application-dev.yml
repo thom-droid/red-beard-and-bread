@@ -7,8 +7,4 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop  # (1) ??? ?? ??
-    show-sql: true      # (2) SQL ?? ??
     database-platform: org.hibernate.dialect.MySQL8Dialect
-    properties:
-      hibernate:
-        format_sql: true  # (3) SQL pretty print
