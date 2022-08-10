@@ -21,8 +21,4 @@ public class ItemServiceTest extends ServiceTestConfig {
 
     }
 
-    @Test
-    public void createItem() {
-
-    }
 }

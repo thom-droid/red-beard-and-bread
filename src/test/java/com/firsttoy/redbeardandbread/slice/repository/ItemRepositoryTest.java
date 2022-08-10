@@ -19,7 +19,6 @@ public class ItemRepositoryTest {
     @Test
     public void givenItem_whenSaved_thenItemOptionsCascade() {
         //given
-
         Item data = Item.builder()
                 .name("PLAIN CROISSANT")
                 .title("basic croissant")
