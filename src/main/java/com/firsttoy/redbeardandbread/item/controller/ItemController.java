@@ -29,7 +29,7 @@ public class ItemController {
     @PostMapping
     public ResponseEntity<SingleResponseDto<ItemPostResponseDto>> postItem(@RequestBody @Valid ItemPostDto itemPostDto) {
         Item item = itemMapper.itemFrom(itemPostDto);
-        Item createdItem = itemService.postItem(item);
+        Item createdItem = itemService.createItem(item);
         ItemPostResponseDto response = itemMapper.itemPostResponseDtoFrom(createdItem);
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);

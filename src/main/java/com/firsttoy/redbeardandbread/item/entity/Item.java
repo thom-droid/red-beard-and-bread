@@ -73,7 +73,7 @@ public class Item extends Auditable {
     private Set<User> users = new HashSet<>();
 
     @Builder.Default
-    @OneToMany(mappedBy = "item", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "item", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<ItemOption> itemOptions = new LinkedList<>();
 
     @Getter
@@ -107,6 +107,14 @@ public class Item extends Auditable {
             this.code = code;
             this.desc = desc;
         }
+    }
+
+    public void addItemOptions(ItemOption itemOption) {
+        if (!itemOptions.contains(itemOption)) {
+            itemOptions.add(itemOption);
+        }
+
+        itemOption.setItem(this);
     }
 
 }

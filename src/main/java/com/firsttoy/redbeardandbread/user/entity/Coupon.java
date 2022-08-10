@@ -2,10 +2,7 @@ package com.firsttoy.redbeardandbread.user.entity;
 
 import com.firsttoy.redbeardandbread.audit.Auditable;
 import com.firsttoy.redbeardandbread.item.entity.Item;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -38,7 +35,7 @@ public class Coupon {
     @Column(nullable = false)
     private LocalDateTime expiredAt;
 
-    private boolean isAvailable= issuedAt.isBefore(expiredAt) || appliedAt == null;
+    private boolean isAvailable;
 
     @ManyToOne
     @JoinColumn(name = "USERS_ID")
@@ -48,6 +45,9 @@ public class Coupon {
     @OneToMany
     private List<Item> items = new ArrayList<>();
 
+    public void setAvailable() {
+        isAvailable = issuedAt.isBefore(expiredAt) || appliedAt == null;
+    }
 
     //Todo discount: strategy pattern ; welcome, revisit, mission ...
 }

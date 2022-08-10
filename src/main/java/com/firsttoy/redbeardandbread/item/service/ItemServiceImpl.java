@@ -14,7 +14,7 @@ public class ItemServiceImpl implements ItemService {
     private final ItemRepository itemRepository;
 
     @Override
-    public Item postItem(Item item) {
+    public Item createItem(Item item) {
         verifyExists(item.getCode());
         return itemRepository.save(item);
     }

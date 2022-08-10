@@ -1,9 +1,6 @@
 package com.firsttoy.redbeardandbread.item.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -24,6 +21,7 @@ public class ItemOption {
     @Column(nullable = false)
     private int price;
 
+    @Setter
     @ManyToOne
     @JoinColumn(name = "ITEM_ID")
     private Item item;

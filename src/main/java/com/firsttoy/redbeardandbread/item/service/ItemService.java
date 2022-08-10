@@ -4,5 +4,5 @@ import com.firsttoy.redbeardandbread.item.entity.Item;
 
 public interface ItemService {
 
-    Item postItem(Item item);
+    Item createItem(Item item);
 }
