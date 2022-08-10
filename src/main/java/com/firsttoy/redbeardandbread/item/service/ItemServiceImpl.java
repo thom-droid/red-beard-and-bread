@@ -1,5 +1,7 @@
 package com.firsttoy.redbeardandbread.item.service;
 
+import com.firsttoy.redbeardandbread.exception.CustomRuntimeException;
+import com.firsttoy.redbeardandbread.exception.Exceptions;
 import com.firsttoy.redbeardandbread.item.entity.Item;
 import com.firsttoy.redbeardandbread.item.repository.ItemRepository;
 import lombok.AllArgsConstructor;
@@ -23,7 +25,7 @@ public class ItemServiceImpl implements ItemService {
 
         itemRepository.findByCode(itemCode).ifPresent(
             item -> {
-                throw new RuntimeException("item already exists");}
+                throw new CustomRuntimeException(Exceptions.ITEM_ALREADY_EXISTS);}
         );
     }
 }
