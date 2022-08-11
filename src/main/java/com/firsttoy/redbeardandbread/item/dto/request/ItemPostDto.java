@@ -10,6 +10,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -47,5 +48,6 @@ public class ItemPostDto {
     @NotEmpty
     private Item.Category category;
 
-    private List<ItemOptionPostDto> itemOptions;
+    @Builder.Default
+    private List<ItemOptionPostDto> itemOptions = new ArrayList<>();
 }
