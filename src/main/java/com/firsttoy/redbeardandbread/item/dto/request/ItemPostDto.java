@@ -6,9 +6,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
@@ -36,7 +38,7 @@ public class ItemPostDto {
     @Positive
     private int stock;
 
-    @Positive
+    @Range(min = 0L, max = 1000)
     private int point;
 
     //Todo : custom validator
@@ -44,7 +46,7 @@ public class ItemPostDto {
     @Length(min = 4, max = 4)
     private String code;
 
-    @NotEmpty
+    @NotNull
     private Item.Category category;
 
     private List<ItemOptionPostDto> itemOptions;
