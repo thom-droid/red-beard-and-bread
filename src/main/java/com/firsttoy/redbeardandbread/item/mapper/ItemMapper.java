@@ -7,9 +7,6 @@ import com.firsttoy.redbeardandbread.item.entity.Item;
 import com.firsttoy.redbeardandbread.item.entity.ItemOption;
 import org.mapstruct.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Mapper(componentModel = "spring")
 @DecoratedWith(ItemMapperDecorator.class)
 public interface ItemMapper {
@@ -18,20 +15,12 @@ public interface ItemMapper {
     @Mapping(target = "itemOptions", ignore = true)
     Item itemFrom(ItemPostDto itemPostDto);
 
+    void updateItemFromItemPostDto(@MappingTarget Item item, ItemPostDto itemPostDto);
+
     ItemOption itemOptionFrom(ItemOptionPostDto itemOptionPostDto);
 
     ItemPostResponseDto itemPostResponseDtoFrom(Item item);
 
     ItemOptionPostDto itemOptionPostDtoFrom(ItemOption itemOption);
 
-
-    @AfterMapping
-    default void addItemOptions(@MappingTarget Item item, ItemPostDto itemPostDto) {
-        itemPostDto.getItemOptions().forEach(itemOptionDto -> {
-            ItemOption itemOption = itemOptionFrom(itemOptionDto);
-            item.addItemOptions(itemOption);
-        });
-    }
-
-//    void updateItem(@MappingTarget Item item, ItemPostDto itemPostDto);
 }

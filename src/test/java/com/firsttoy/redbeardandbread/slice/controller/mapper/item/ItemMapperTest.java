@@ -9,18 +9,21 @@ import com.firsttoy.redbeardandbread.item.mapper.ItemMapper;
 import com.firsttoy.redbeardandbread.item.mapper.ItemMapperImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
 import static org.mockito.BDDMockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.*;
+@SpringBootTest
+public class ItemMapperTest {
 
-public class ItemMapperTest extends MockTestConfig {
+    @Autowired
+    private  ItemMapper itemMapper;
 
-    private final ItemMapper itemMapper = new ItemMapperImpl();
-
-    @DisplayName("ItemPostDto -> Item")
+    @DisplayName("ItemPostDto -> Item 😊🤣❤️😍")
     @Test
     public void itemPostDtoToItemEntity() {
 
@@ -50,7 +53,7 @@ public class ItemMapperTest extends MockTestConfig {
                 .itemOptions(itemOptionPostDtoList)
                 .build();
 
-        Item targetItem = Item.builder()
+        Item source = Item.builder()
                 .name(itemPostDto.getName())
                 .title(itemPostDto.getTitle())
                 .thumbnail(itemPostDto.getThumbnail())
@@ -72,15 +75,16 @@ public class ItemMapperTest extends MockTestConfig {
                 .price(itemOptionPostDto1.getPrice())
                 .build();
 
-        targetItem.addItemOptions(optionEntity);
-        targetItem.addItemOptions(optionEntity2);
+        source.addItemOptions(optionEntity);
+        source.addItemOptions(optionEntity2);
 
         //when
-        Item destItem = itemMapper.itemFrom(itemPostDto);
+        Item target = itemMapper.itemFrom(itemPostDto);
+        itemMapper.updateItemFromItemPostDto(target, itemPostDto);
 
         //then
-
-        assertThat(destItem.getName()).isEqualTo(targetItem.getName());
-        assertThat(destItem.getItemOptions().get(0).getName()).isEqualTo(targetItem.getItemOptions().get(0).getName());
+        assertThat(target.getName()).isEqualTo(source.getName());
+        assertThat(target.getItemOptions().get(0).getName()).isEqualTo(source.getItemOptions().get(0).getName());
+        assertThat(target.getItemOptions().get(0).getItem().getName()).isEqualTo(target.getName());
     }
 }

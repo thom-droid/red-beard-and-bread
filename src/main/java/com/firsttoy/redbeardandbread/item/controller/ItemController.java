@@ -29,6 +29,7 @@ public class ItemController {
     @PostMapping
     public ResponseEntity<SingleResponseDto<ItemPostResponseDto>> postItem(@RequestBody @Valid ItemPostDto itemPostDto) {
         Item item = itemMapper.itemFrom(itemPostDto);
+        itemMapper.updateItemFromItemPostDto(item, itemPostDto);
         Item createdItem = itemService.createItem(item);
         ItemPostResponseDto response = itemMapper.itemPostResponseDtoFrom(createdItem);
 
