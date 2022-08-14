@@ -1,12 +1,14 @@
+import java.text.DateFormat
+
 plugins {
 	id 'org.springframework.boot' version '2.7.2'
 	id 'io.spring.dependency-management' version '1.0.12.RELEASE'
-	id 'org.asciidoctor.convert' version '1.5.8'
+	id 'org.asciidoctor.jvm.convert' version '3.3.2'
 	id 'java'
 }
 
 group = 'com.first-toy'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1-SNAPSHOT' + new Date().format("yyyy-MM-dd HH:mm:ss");
 sourceCompatibility = '11'
 
 configurations {
@@ -23,7 +25,12 @@ ext {
 	set('snippetsDir', file("build/generated-snippets"))
 }
 
+configurations {
+	asciidoctorExtensions
+}
+
 dependencies {
+
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'org.springframework.boot:spring-boot-starter-mustache'
@@ -45,6 +52,9 @@ dependencies {
 	annotationProcessor "org.mapstruct:mapstruct-processor:1.5.2.Final"
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	//asciidoctor for rest docs
+	asciidoctorExtensions 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 
 }
@@ -55,6 +65,27 @@ tasks.named('test') {
 }
 
 tasks.named('asciidoctor') {
+	configurations "asciidoctorExtensions"
 	inputs.dir snippetsDir
 	dependsOn test
 }
+
+task copyDocument(type: Copy){
+	dependsOn asciidoctor
+	println "asciidoctor output : ${asciidoctor.outputDir}"
+	from file("build/docs/asciidoc/")
+	into file("src/main/resources/static/docs")
+}
+
+build {
+	dependsOn copyDocument
+}
+
+bootJar{
+	enabled = true
+	dependsOn copyDocument
+	from ("${asciidoctor.outputDir}"){
+		into 'static/docs'
+	}
+}
+
