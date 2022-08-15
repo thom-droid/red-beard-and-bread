@@ -8,7 +8,7 @@ plugins {
 }
 
 group = 'com.first-toy'
-version = '0.0.1-SNAPSHOT' + new Date().format("yyyy-MM-dd HH:mm:ss");
+version = '0.0.1-SNAPSHOT' + new Date().format("yyyy-MM-dd HH-mm-ss");
 sourceCompatibility = '11'
 
 configurations {

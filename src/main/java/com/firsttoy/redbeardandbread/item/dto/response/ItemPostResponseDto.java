@@ -22,6 +22,9 @@ public class ItemPostResponseDto {
     private int price;
     private int stock;
     private int point;
+    private String thumbnail;
+    private String descriptionImage;
+    private String code;
     private Item.Category category;
     private Item.SaleStatus status;
 

@@ -1,0 +1,25 @@
+= red beard and bread application
+:sectnums:1
+:toc: middle
+:toclevels: 4
+:toc-title: Table of Contents
+:source-highlighter: highlightjs
+
+Hyeonsu Bang <hsbang.thom@gmail.com>
+
+v.1.0.0, #2022-08-15
+
+'''
+== ItemController
+=== post-item
+.http-request
+include::{snippets}/post-item/http-request.adoc[]
+
+.request-fields
+include::{snippets}/post-item/request-fields.adoc[]
+
+.http-response
+include::{snippets}/post-item/http-response.adoc[]
+
+.response-fields
+include::{snippets}/post-item/response-fields.adoc[]
