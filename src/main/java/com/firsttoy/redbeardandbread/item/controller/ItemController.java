@@ -1,6 +1,7 @@
 package com.firsttoy.redbeardandbread.item.controller;
 
 import com.firsttoy.redbeardandbread.dto.SingleResponseDto;
+import com.firsttoy.redbeardandbread.item.dto.request.ItemPatchDto;
 import com.firsttoy.redbeardandbread.item.dto.request.ItemPostDto;
 import com.firsttoy.redbeardandbread.item.dto.response.ItemPostResponseDto;
 import com.firsttoy.redbeardandbread.item.entity.Item;
@@ -10,10 +11,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -34,6 +32,17 @@ public class ItemController {
         ItemPostResponseDto response = itemMapper.itemPostResponseDtoFrom(createdItem);
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
+    }
+
+    @PatchMapping("/{itemId}")
+    public ResponseEntity<SingleResponseDto<ItemPatchDto>> patchItem(
+            @RequestBody ItemPatchDto itemPatchDto,
+            @PathVariable Long itemId) {
+        itemPatchDto.setItemId(itemId);
+
+        Item updatedItem = itemService.updateItem(itemMapper.itemFrom(itemPatchDto));
+
+        return new ResponseEntity<>(new SingleResponseDto<>(itemPatchDto), HttpStatus.OK);
     }
 
 }

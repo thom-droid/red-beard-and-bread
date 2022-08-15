@@ -1,6 +1,7 @@
 package com.firsttoy.redbeardandbread.item.mapper;
 
 import com.firsttoy.redbeardandbread.item.dto.request.ItemOptionPostDto;
+import com.firsttoy.redbeardandbread.item.dto.request.ItemPatchDto;
 import com.firsttoy.redbeardandbread.item.dto.request.ItemPostDto;
 import com.firsttoy.redbeardandbread.item.dto.response.ItemPostResponseDto;
 import com.firsttoy.redbeardandbread.item.entity.Item;
@@ -22,5 +23,8 @@ public interface ItemMapper {
     ItemPostResponseDto itemPostResponseDtoFrom(Item item);
 
     ItemOptionPostDto itemOptionPostDtoFrom(ItemOption itemOption);
+
+
+    Item itemFrom(ItemPatchDto itemPatchDto);
 
 }
