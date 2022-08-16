@@ -1,12 +1,11 @@
 package com.firsttoy.redbeardandbread.slice.controller.mapper.item;
 
-import com.firsttoy.redbeardandbread.config.MockTestConfig;
-import com.firsttoy.redbeardandbread.item.dto.request.ItemOptionPostDto;
+import com.firsttoy.redbeardandbread.item.dto.request.ItemOptionDto;
 import com.firsttoy.redbeardandbread.item.dto.request.ItemPostDto;
 import com.firsttoy.redbeardandbread.item.entity.Item;
 import com.firsttoy.redbeardandbread.item.entity.ItemOption;
 import com.firsttoy.redbeardandbread.item.mapper.ItemMapper;
-import com.firsttoy.redbeardandbread.item.mapper.ItemMapperImpl;
+import com.firsttoy.redbeardandbread.utils.CustomBeanUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,31 +13,33 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-import static org.mockito.BDDMockito.*;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.*;
+
 @SpringBootTest
 public class ItemMapperTest {
 
     @Autowired
-    private  ItemMapper itemMapper;
+    private ItemMapper itemMapper;
+
+    @Autowired
+    private CustomBeanUtils customBeanUtils;
 
     @DisplayName("ItemPostDto -> Item 😊🤣❤️😍")
     @Test
     public void itemPostDtoToItemEntity() {
 
         //given
-        ItemOptionPostDto itemOptionPostDto = ItemOptionPostDto.builder()
+        ItemOptionDto itemOptionDto = ItemOptionDto.builder()
                 .name("size up")
                 .price(1000)
                 .build();
 
-        ItemOptionPostDto itemOptionPostDto1 = ItemOptionPostDto.builder()
+        ItemOptionDto itemOptionDto1 = ItemOptionDto.builder()
                 .name("blueberry jam")
                 .price(1500)
                 .build();
 
-        List<ItemOptionPostDto> itemOptionPostDtoList = List.of(itemOptionPostDto, itemOptionPostDto1);
+        List<ItemOptionDto> itemOptionDtoList = List.of(itemOptionDto, itemOptionDto1);
 
         ItemPostDto itemPostDto = ItemPostDto.builder()
                 .name("Plain Croissant")
@@ -50,7 +51,7 @@ public class ItemMapperTest {
                 .point(10)
                 .code("PCRI")
                 .category(Item.Category.BREAD)
-                .itemOptions(itemOptionPostDtoList)
+                .itemOptions(itemOptionDtoList)
                 .build();
 
         Item source = Item.builder()
@@ -66,13 +67,13 @@ public class ItemMapperTest {
                 .build();
 
         ItemOption optionEntity = ItemOption.builder()
-                .name(itemOptionPostDto.getName())
-                .price(itemOptionPostDto.getPrice())
+                .name(itemOptionDto.getName())
+                .price(itemOptionDto.getPrice())
                 .build();
 
         ItemOption optionEntity2 = ItemOption.builder()
-                .name(itemOptionPostDto1.getName())
-                .price(itemOptionPostDto1.getPrice())
+                .name(itemOptionDto1.getName())
+                .price(itemOptionDto1.getPrice())
                 .build();
 
         source.addItemOptions(optionEntity);
@@ -86,5 +87,11 @@ public class ItemMapperTest {
         assertThat(target.getName()).isEqualTo(source.getName());
         assertThat(target.getItemOptions().get(0).getName()).isEqualTo(source.getItemOptions().get(0).getName());
         assertThat(target.getItemOptions().get(0).getItem().getName()).isEqualTo(target.getName());
+    }
+
+    @DisplayName("ItemPatchDto -> UpdatedItem")
+    @Test
+    public void givenItemPatchDto_whenMapperInvoked_thenUpdatedItemReturn() {
+
     }
 }

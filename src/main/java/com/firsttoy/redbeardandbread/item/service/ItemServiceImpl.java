@@ -3,12 +3,11 @@ package com.firsttoy.redbeardandbread.item.service;
 import com.firsttoy.redbeardandbread.exception.CustomRuntimeException;
 import com.firsttoy.redbeardandbread.exception.Exceptions;
 import com.firsttoy.redbeardandbread.item.entity.Item;
+import com.firsttoy.redbeardandbread.item.entity.ItemOption;
 import com.firsttoy.redbeardandbread.item.repository.ItemRepository;
 import com.firsttoy.redbeardandbread.utils.CustomBeanUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -19,19 +18,20 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Item createItem(Item item) {
-        verifyExists(item.getCode());
+        verifyExistence(item.getCode());
         return itemRepository.save(item);
     }
 
     @Override
     public Item updateItem(Item source) {
         Item target = findById(source.getItemId());
-        Item updatedItem = beanUtils.copyProperties(target, source);
+//        Item updatedItem = beanUtils.copyProperties(target, source);
 
-        return itemRepository.save(updatedItem);
+//        return itemRepository.save(updatedItem);
+        return null;
     }
 
-    public void verifyExists(String itemCode) {
+    public void verifyExistence(String itemCode) {
 
         itemRepository.findByCode(itemCode).ifPresent(
             item -> {

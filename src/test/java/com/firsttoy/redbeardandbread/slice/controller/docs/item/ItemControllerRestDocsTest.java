@@ -1,42 +1,35 @@
 package com.firsttoy.redbeardandbread.slice.controller.docs.item;
 
 import com.firsttoy.redbeardandbread.item.controller.ItemController;
-import com.firsttoy.redbeardandbread.item.dto.request.ItemOptionPostDto;
+import com.firsttoy.redbeardandbread.item.dto.request.ItemOptionDto;
 import com.firsttoy.redbeardandbread.item.dto.request.ItemPostDto;
 import com.firsttoy.redbeardandbread.item.dto.response.ItemPostResponseDto;
 import com.firsttoy.redbeardandbread.item.entity.Item;
 import com.firsttoy.redbeardandbread.item.mapper.ItemMapper;
 import com.firsttoy.redbeardandbread.item.repository.ItemRepository;
 import com.firsttoy.redbeardandbread.item.service.ItemService;
-import com.firsttoy.redbeardandbread.item.service.ItemServiceImpl;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
-import org.springframework.restdocs.operation.preprocess.OperationRequestPreprocessor;
 import org.springframework.restdocs.operation.preprocess.Preprocessors;
 import org.springframework.restdocs.payload.JsonFieldType;
-import org.springframework.restdocs.payload.RequestFieldsSnippet;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 
 //@MockBean(JpaMetamodelMappingContext.class)
@@ -65,17 +58,17 @@ public class ItemControllerRestDocsTest {
     public void givenItemAndItemOption_whenPostRequested_thenPersistedItemReturned() throws Exception {
         //given
 
-        ItemOptionPostDto optionPostDto = ItemOptionPostDto.builder()
+        ItemOptionDto optionPostDto = ItemOptionDto.builder()
                 .name("size up")
                 .price(500)
                 .build();
 
-        ItemOptionPostDto optionPostDto1 = ItemOptionPostDto.builder()
+        ItemOptionDto optionPostDto1 = ItemOptionDto.builder()
                 .name("stuffed with jam")
                 .price(1500)
                 .build();
 
-        List<ItemOptionPostDto> optionPostDtos = List.of(optionPostDto, optionPostDto1);
+        List<ItemOptionDto> optionPostDtos = List.of(optionPostDto, optionPostDto1);
 
         ItemPostResponseDto responseDto = ItemPostResponseDto.builder()
                                 .itemId(1L)

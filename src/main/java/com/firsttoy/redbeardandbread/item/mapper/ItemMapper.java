@@ -1,6 +1,6 @@
 package com.firsttoy.redbeardandbread.item.mapper;
 
-import com.firsttoy.redbeardandbread.item.dto.request.ItemOptionPostDto;
+import com.firsttoy.redbeardandbread.item.dto.request.ItemOptionDto;
 import com.firsttoy.redbeardandbread.item.dto.request.ItemPatchDto;
 import com.firsttoy.redbeardandbread.item.dto.request.ItemPostDto;
 import com.firsttoy.redbeardandbread.item.dto.response.ItemPostResponseDto;
@@ -12,19 +12,17 @@ import org.mapstruct.*;
 @DecoratedWith(ItemMapperDecorator.class)
 public interface ItemMapper {
 
-    //Todo: config setting to use Item.addItemOption() method.
     @Mapping(target = "itemOptions", ignore = true)
     Item itemFrom(ItemPostDto itemPostDto);
 
     void updateItemFromItemPostDto(@MappingTarget Item item, ItemPostDto itemPostDto);
 
-    ItemOption itemOptionFrom(ItemOptionPostDto itemOptionPostDto);
+    ItemOption itemOptionFrom(ItemOptionDto itemOptionDto);
 
     ItemPostResponseDto itemPostResponseDtoFrom(Item item);
 
-    ItemOptionPostDto itemOptionPostDtoFrom(ItemOption itemOption);
+    ItemOptionDto itemOptionPostDtoFrom(ItemOption itemOption);
 
-
-    Item itemFrom(ItemPatchDto itemPatchDto);
+    Item updateItemFromItemPatchDto(@MappingTarget Item item, ItemPatchDto itemPatchDto);
 
 }

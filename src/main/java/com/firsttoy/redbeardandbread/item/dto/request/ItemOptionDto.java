@@ -11,7 +11,7 @@ import javax.validation.constraints.NotEmpty;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ItemOptionPostDto {
+public class ItemOptionDto {
 
     @NotEmpty
     private String name;

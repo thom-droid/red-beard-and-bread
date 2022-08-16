@@ -35,14 +35,15 @@ public class ItemController {
     }
 
     @PatchMapping("/{itemId}")
-    public ResponseEntity<SingleResponseDto<ItemPatchDto>> patchItem(
+    public ResponseEntity<SingleResponseDto<Item>> patchItem(
             @RequestBody ItemPatchDto itemPatchDto,
             @PathVariable Long itemId) {
+
         itemPatchDto.setItemId(itemId);
+        Item foundItem = itemService.findById(itemId);
 
-        Item updatedItem = itemService.updateItem(itemMapper.itemFrom(itemPatchDto));
-
-        return new ResponseEntity<>(new SingleResponseDto<>(itemPatchDto), HttpStatus.OK);
+//        Item updatedItem = itemService.updateItem(itemMapper.itemFrom(itemPatchDto));
+        return new ResponseEntity<>(new SingleResponseDto<>(foundItem), HttpStatus.OK);
     }
 
 }
