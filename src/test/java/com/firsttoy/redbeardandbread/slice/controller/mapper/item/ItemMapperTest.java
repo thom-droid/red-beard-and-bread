@@ -1,6 +1,7 @@
 package com.firsttoy.redbeardandbread.slice.controller.mapper.item;
 
 import com.firsttoy.redbeardandbread.item.dto.request.ItemOptionDto;
+import com.firsttoy.redbeardandbread.item.dto.request.ItemPatchDto;
 import com.firsttoy.redbeardandbread.item.dto.request.ItemPostDto;
 import com.firsttoy.redbeardandbread.item.entity.Item;
 import com.firsttoy.redbeardandbread.item.entity.ItemOption;
@@ -73,6 +74,74 @@ public class ItemMapperTest {
     @DisplayName("ItemPatchDto -> UpdatedItem")
     @Test
     public void givenItemPatchDto_whenMapperInvoked_thenUpdatedItemReturn() {
+        // given
+
+        // dto
+        // descriptionImage is set as null to test if null value strategy is applied in mapper
+        ItemOptionDto itemOptionDto =
+                ItemOptionDto.builder()
+                        .name("additional jam")
+                        .price(1500)
+                        .build();
+
+        ItemOptionDto itemOptionDto1 =
+                ItemOptionDto.builder()
+                        .name("additional butter")
+                        .price(1000)
+                        .build();
+
+        ItemPatchDto itemPatchDto =
+                ItemPatchDto.builder()
+                        .itemId(1L)
+                        .point(1000)
+                        .stock(100)
+                        .itemOptions(List.of(itemOptionDto, itemOptionDto1))
+                        .build();
+
+        // entity
+        ItemOption itemOption =
+                ItemOption.builder()
+                        .itemOptionId(1L)
+                        .name("extra size : before update")
+                        .price(1200)
+                        .build();
+
+        ItemOption itemOption1 =
+                ItemOption.builder()
+                        .itemOptionId(2L)
+                        .name("extra yogurt : before update")
+                        .price(900)
+                        .build();
+
+        Item entity = Item.builder()
+                .name("Croissant")
+                .itemId(1L)
+                .title("title")
+                .thumbnail("thumbnail")
+                .descriptionImage("before updated")
+                .price(500)
+                .stock(50)
+                .point(500)
+                .code("PCRI")
+                .category(Item.Category.BREAD)
+                .itemOptions(List.of(itemOption,itemOption1))
+                .build();
+
+        // when
+        Item source = itemMapper.itemFrom(itemPatchDto);
+        itemMapper.updateItemFromSourceItem(entity, source);
+
+        // then
+//        assertThat(entity.getDescriptionImage()).isNotEqualTo(source.getDescriptionImage());
+        assertThat(entity.getDescriptionImage()).isEqualTo("before updated");
+        assertThat(entity.getStock()).isEqualTo(source.getStock());
+        assertThat(entity.getPoint()).isEqualTo(source.getPoint());
+
+        assertThat(entity.getItemOptions().get(0).getItemOptionId()).isEqualTo(1L);
+        assertThat(entity.getItemOptions().get(0).getName()).isEqualTo(source.getItemOptions().get(0).getName());
+        assertThat(entity.getItemOptions().get(0).getPrice()).isEqualTo(source.getItemOptions().get(0).getPrice());
+        assertThat(entity.getItemOptions().get(1).getName()).isEqualTo(source.getItemOptions().get(1).getName());
+        assertThat(entity.getItemOptions().get(1).getPrice()).isEqualTo(source.getItemOptions().get(1).getPrice());
 
     }
 }
