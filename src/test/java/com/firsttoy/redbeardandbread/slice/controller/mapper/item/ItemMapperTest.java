@@ -6,8 +6,12 @@ import com.firsttoy.redbeardandbread.item.entity.Item;
 import com.firsttoy.redbeardandbread.item.entity.ItemOption;
 import com.firsttoy.redbeardandbread.item.mapper.ItemMapper;
 import com.firsttoy.redbeardandbread.utils.CustomBeanUtils;
+import com.firsttoy.redbeardandbread.utils.StubbingUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.stubbing.Stubbing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -29,30 +33,7 @@ public class ItemMapperTest {
     public void itemPostDtoToItemEntity() {
 
         //given
-        ItemOptionDto itemOptionDto = ItemOptionDto.builder()
-                .name("size up")
-                .price(1000)
-                .build();
-
-        ItemOptionDto itemOptionDto1 = ItemOptionDto.builder()
-                .name("blueberry jam")
-                .price(1500)
-                .build();
-
-        List<ItemOptionDto> itemOptionDtoList = List.of(itemOptionDto, itemOptionDto1);
-
-        ItemPostDto itemPostDto = ItemPostDto.builder()
-                .name("Plain Croissant")
-                .title("쫀딕쫀딕 버터향이 살아있는 ")
-                .thumbnail("croissant.jpg")
-                .descriptionImage("croissant-desc.jpg")
-                .price(3000)
-                .stock(100)
-                .point(10)
-                .code("PCRI")
-                .category(Item.Category.BREAD)
-                .itemOptions(itemOptionDtoList)
-                .build();
+        ItemPostDto itemPostDto = StubbingUtils.getSimpleItemPostDto("Plain Croissant", "PCRI", Item.Category.BREAD);
 
         Item source = Item.builder()
                 .name(itemPostDto.getName())
@@ -67,13 +48,13 @@ public class ItemMapperTest {
                 .build();
 
         ItemOption optionEntity = ItemOption.builder()
-                .name(itemOptionDto.getName())
-                .price(itemOptionDto.getPrice())
+                .name(itemPostDto.getItemOptions().get(0).getName())
+                .price(itemPostDto.getItemOptions().get(0).getPrice())
                 .build();
 
         ItemOption optionEntity2 = ItemOption.builder()
-                .name(itemOptionDto1.getName())
-                .price(itemOptionDto1.getPrice())
+                .name(itemPostDto.getItemOptions().get(1).getName())
+                .price(itemPostDto.getItemOptions().get(1).getPrice())
                 .build();
 
         source.addItemOptions(optionEntity);

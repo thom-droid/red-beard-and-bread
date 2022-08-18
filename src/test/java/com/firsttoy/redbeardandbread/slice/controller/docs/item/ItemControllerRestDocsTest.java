@@ -123,6 +123,8 @@ public class ItemControllerRestDocsTest {
                         "post-item",
                         Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
                         Preprocessors.preprocessResponse(Preprocessors.prettyPrint()),
+                        //Todo : documentation 코드를 추상화할 수 없을까?
+                        //Todo : validation 정보 추가
                         requestFields(
                                 List.of(
                                         fieldWithPath("name").type(JsonFieldType.STRING).description("상품명"),

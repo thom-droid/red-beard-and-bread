@@ -15,9 +15,11 @@ public class ItemOption {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long itemOptionId;
 
+    @Setter
     @Column(nullable = false)
     private String name;
 
+    @Setter
     @Column(nullable = false)
     private int price;
 

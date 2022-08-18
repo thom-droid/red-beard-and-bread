@@ -33,15 +33,18 @@ public class Item extends Auditable {
     @Column(nullable = false)
     private String thumbnail;
 
+    @Setter
     @Column(nullable = false)
     private String descriptionImage;
 
     @Column(nullable = false)
     private int price;
 
+    @Setter
     @Column(nullable = false)
     private int stock;
 
+    @Setter
     @Column(nullable = false)
     private int point;
 
@@ -69,7 +72,7 @@ public class Item extends Auditable {
     private SpecialOffer specialOffer;
 
     @Builder.Default
-    @ManyToMany(mappedBy = "items")
+    @ManyToMany(mappedBy = "items", fetch = FetchType.LAZY)
     private Set<User> users = new HashSet<>();
 
     @Builder.Default
