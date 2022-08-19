@@ -24,9 +24,13 @@ public interface ItemMapper {
 
     //todo: if some values are null or not present,
     @Mapping(target = "users", ignore = true)
-//    @Mapping(target = "itemOptions", ignore = true)
+    @Mapping(target = "itemOptions", ignore = true)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateItemFromSourceItem(@MappingTarget Item item, Item sourceItem);
+    void updateItemFromPatchDto(@MappingTarget Item item, ItemPatchDto source);
+
+    @Mapping(target = "item", ignore = true)
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void updateItemOptionFromDto(@MappingTarget ItemOption itemOption, ItemOptionDto source);
 
     ItemOption itemOptionFrom(ItemOptionDto itemOptionDto);
 

@@ -53,17 +53,19 @@ public class ItemControllerRestDocsTest {
     @MockBean
     private ItemMapper itemMapper;
 
-    @DisplayName("postItem")
+    @DisplayName("RestDocs -> postItem")
     @Test
     public void givenItemAndItemOption_whenPostRequested_thenPersistedItemReturned() throws Exception {
         //given
 
         ItemOptionDto optionPostDto = ItemOptionDto.builder()
+                .itemId(1L)
                 .name("size up")
                 .price(500)
                 .build();
 
         ItemOptionDto optionPostDto1 = ItemOptionDto.builder()
+                .itemId(2L)
                 .name("stuffed with jam")
                 .price(1500)
                 .build();
@@ -71,19 +73,19 @@ public class ItemControllerRestDocsTest {
         List<ItemOptionDto> optionPostDtos = List.of(optionPostDto, optionPostDto1);
 
         ItemPostResponseDto responseDto = ItemPostResponseDto.builder()
-                                .itemId(1L)
-                                .name("Plain Croissant")
-                                .title("쫀딕쫀딕 버터향이 구수한 갓 구운 끄로아상")
-                                .thumbnail("thumbnail.png")
-                                .descriptionImage("description.png")
-                                .code("PCRI")
-                                .price(5000)
-                                .stock(100)
-                                .point(50)
-                                .category(Item.Category.BREAD)
-                                .status(Item.SaleStatus.ON_SALE)
-                                .itemOptions(optionPostDtos)
-                                .build();
+                .itemId(1L)
+                .name("Plain Croissant")
+                .title("쫀딕쫀딕 버터향이 구수한 갓 구운 끄로아상")
+                .thumbnail("thumbnail.png")
+                .descriptionImage("description.png")
+                .code("PCRI")
+                .price(5000)
+                .stock(100)
+                .point(50)
+                .category(Item.Category.BREAD)
+                .status(Item.SaleStatus.ON_SALE)
+                .itemOptions(optionPostDtos)
+                .build();
 
 
         given(itemMapper.itemFrom(Mockito.any(ItemPostDto.class))).willReturn(Mockito.mock(Item.class));
@@ -156,6 +158,7 @@ public class ItemControllerRestDocsTest {
                                         fieldWithPath("response.category").type(JsonFieldType.STRING).description("카테고리"),
                                         fieldWithPath("response.status").type(JsonFieldType.STRING).description("판매상태"),
                                         fieldWithPath("response.itemOptions[]").type(JsonFieldType.ARRAY).description("옵션정보"),
+                                        fieldWithPath("response.itemOptions[].itemId").type(JsonFieldType.NUMBER).description("식별자"),
                                         fieldWithPath("response.itemOptions[].name").type(JsonFieldType.STRING).description("옵션이름").optional(),
                                         fieldWithPath("response.itemOptions[].price").type(JsonFieldType.NUMBER).description("옵션가격").optional()
                                 )
@@ -164,4 +167,9 @@ public class ItemControllerRestDocsTest {
                 ));
     }
 
+    @DisplayName("RestDocs -> Update item")
+    @Test
+    public void givenItemPatchDto_whenPatchRequested_thenUpdatedItemReturn() {
+        
+    }
 }

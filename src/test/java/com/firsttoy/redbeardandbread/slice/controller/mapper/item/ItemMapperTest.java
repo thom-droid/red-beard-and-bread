@@ -80,14 +80,14 @@ public class ItemMapperTest {
         // descriptionImage is set as null to test if null value strategy is applied in mapper
         ItemOptionDto itemOptionDto =
                 ItemOptionDto.builder()
-                        .name("additional jam")
+                        .itemId(1L)
                         .price(1500)
                         .build();
 
         ItemOptionDto itemOptionDto1 =
                 ItemOptionDto.builder()
+                        .itemId(2L)
                         .name("additional butter")
-                        .price(1000)
                         .build();
 
         ItemPatchDto itemPatchDto =
@@ -128,20 +128,22 @@ public class ItemMapperTest {
                 .build();
 
         // when
-        Item source = itemMapper.itemFrom(itemPatchDto);
-        itemMapper.updateItemFromSourceItem(entity, source);
+        itemMapper.updateItemFromPatchDto(entity, itemPatchDto);
+        for (int i = 0; i < entity.getItemOptions().size(); i++) {
+            itemMapper.updateItemOptionFromDto(entity.getItemOptions().get(i), itemPatchDto.getItemOptions().get(i));
+        }
 
         // then
 //        assertThat(entity.getDescriptionImage()).isNotEqualTo(source.getDescriptionImage());
         assertThat(entity.getDescriptionImage()).isEqualTo("before updated");
-        assertThat(entity.getStock()).isEqualTo(source.getStock());
-        assertThat(entity.getPoint()).isEqualTo(source.getPoint());
+        assertThat(entity.getStock()).isEqualTo(itemPatchDto.getStock());
+        assertThat(entity.getPoint()).isEqualTo(itemPatchDto.getPoint());
 
         assertThat(entity.getItemOptions().get(0).getItemOptionId()).isEqualTo(1L);
-        assertThat(entity.getItemOptions().get(0).getName()).isEqualTo(source.getItemOptions().get(0).getName());
-        assertThat(entity.getItemOptions().get(0).getPrice()).isEqualTo(source.getItemOptions().get(0).getPrice());
-        assertThat(entity.getItemOptions().get(1).getName()).isEqualTo(source.getItemOptions().get(1).getName());
-        assertThat(entity.getItemOptions().get(1).getPrice()).isEqualTo(source.getItemOptions().get(1).getPrice());
+        assertThat(entity.getItemOptions().get(0).getName()).isEqualTo("extra size : before update");
+        assertThat(entity.getItemOptions().get(0).getPrice()).isEqualTo(itemPatchDto.getItemOptions().get(0).getPrice());
+        assertThat(entity.getItemOptions().get(1).getName()).isEqualTo(itemPatchDto.getItemOptions().get(1).getName());
+        assertThat(entity.getItemOptions().get(1).getPrice()).isEqualTo(900);
 
     }
 }

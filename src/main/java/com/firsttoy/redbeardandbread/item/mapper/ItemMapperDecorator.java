@@ -32,24 +32,4 @@ public abstract class ItemMapperDecorator implements ItemMapper {
         });
     }
 
-    @Override
-    public void updateItemFromSourceItem(Item item, Item sourceItem) {
-        if (item == null) {
-            return ;
-        }
-
-        item.setDescriptionImage(sourceItem.getDescriptionImage());
-        item.setPoint(sourceItem.getPoint());
-        item.setStock(sourceItem.getStock());
-
-        for (int i = 0; i < item.getItemOptions().size(); i++) {
-            ItemOption itemOption = item.getItemOptions().get(i);
-            ItemOption source = sourceItem.getItemOptions().get(i);
-
-            itemOption.setName(source.getName());
-            itemOption.setPrice(source.getPrice());
-
-        }
-
-    }
 }
