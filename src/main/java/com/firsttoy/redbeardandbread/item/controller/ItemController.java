@@ -40,10 +40,12 @@ public class ItemController {
             @PathVariable Long itemId) {
 
         itemPatchDto.setItemId(itemId);
-        Item foundItem = itemService.findById(itemId);
+        Item source = itemMapper.itemFrom(itemPatchDto);
+
+        itemService.updateItem(source);
 
 //        Item updatedItem = itemService.updateItem(itemMapper.itemFrom(itemPatchDto));
-        return new ResponseEntity<>(new SingleResponseDto<>(foundItem), HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(source), HttpStatus.OK);
     }
 
 }

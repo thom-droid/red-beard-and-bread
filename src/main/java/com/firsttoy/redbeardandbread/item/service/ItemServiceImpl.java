@@ -4,6 +4,7 @@ import com.firsttoy.redbeardandbread.exception.CustomRuntimeException;
 import com.firsttoy.redbeardandbread.exception.Exceptions;
 import com.firsttoy.redbeardandbread.item.entity.Item;
 import com.firsttoy.redbeardandbread.item.entity.ItemOption;
+import com.firsttoy.redbeardandbread.item.mapper.ItemMapper;
 import com.firsttoy.redbeardandbread.item.repository.ItemRepository;
 import com.firsttoy.redbeardandbread.utils.CustomBeanUtils;
 import lombok.AllArgsConstructor;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class ItemServiceImpl implements ItemService {
 
     private final ItemRepository itemRepository;
-    private final CustomBeanUtils<Item> beanUtils;
+    private final ItemMapper itemMapper;
 
     @Override
     public Item createItem(Item item) {
@@ -24,8 +25,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Item updateItem(Item source) {
-        Item target = findById(source.getItemId());
-//        Item updatedItem = beanUtils.copyProperties(target, source);
+        Item entity = findById(source.getItemId());
 
 //        return itemRepository.save(updatedItem);
         return null;
@@ -39,6 +39,7 @@ public class ItemServiceImpl implements ItemService {
         );
     }
 
+    @Override
     public Item findById(Long itemId) {
         return itemRepository.findById(itemId).orElseThrow(
                 () -> {throw new CustomRuntimeException(Exceptions.ITEM_NOT_FOUND);}

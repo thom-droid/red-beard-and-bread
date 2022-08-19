@@ -14,8 +14,8 @@ public class ItemPatchDto {
 
     @Setter
     private Long itemId;
-    private int stock;
-    private int point;
+    private Integer stock;
+    private Integer point;
     private String descriptionImage;
 
     @Builder.Default

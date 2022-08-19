@@ -14,7 +14,8 @@ public enum Exceptions implements ExceptionInformation {
 
     // ETC
     NULL_RESOURCE(900, "neither target nor source must be null"),
-    TYPE_DIFFERENCE(901, "the type of source and target must be the same");
+    TYPE_DIFFERENCE(901, "the type of source and target must be the same"),
+    NO_SUCH_ELEMENT(902, "no such element exists");
 
     private final int code;
     private final String description;
