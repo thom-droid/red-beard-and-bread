@@ -4,7 +4,7 @@ import com.firsttoy.redbeardandbread.config.DefaultMapperConfig;
 import com.firsttoy.redbeardandbread.item.dto.request.ItemOptionDto;
 import com.firsttoy.redbeardandbread.item.dto.request.ItemPatchDto;
 import com.firsttoy.redbeardandbread.item.dto.request.ItemPostDto;
-import com.firsttoy.redbeardandbread.item.dto.response.ItemPostResponseDto;
+import com.firsttoy.redbeardandbread.item.dto.response.ItemResponseDto;
 import com.firsttoy.redbeardandbread.item.entity.Item;
 import com.firsttoy.redbeardandbread.item.entity.ItemOption;
 import org.mapstruct.*;
@@ -17,7 +17,6 @@ public interface ItemMapper {
     @Mapping(target = "itemOptions", ignore = true)
     Item itemFrom(ItemPostDto itemPostDto);
 
-    //    @Mapping(target = "itemOptions", ignore = true)
     Item itemFrom(ItemPatchDto itemPatchDto);
 
     void updateItemFromItemPostDto(@MappingTarget Item item, ItemPostDto itemPostDto);
@@ -26,15 +25,15 @@ public interface ItemMapper {
     @Mapping(target = "users", ignore = true)
     @Mapping(target = "itemOptions", ignore = true)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateItemFromPatchDto(@MappingTarget Item item, ItemPatchDto source);
+    void updateItemFromSource(@MappingTarget Item item, Item source);
 
     @Mapping(target = "item", ignore = true)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateItemOptionFromDto(@MappingTarget ItemOption itemOption, ItemOptionDto source);
+    void updateItemOptionFromSource(@MappingTarget ItemOption itemOption, ItemOption source);
 
     ItemOption itemOptionFrom(ItemOptionDto itemOptionDto);
 
-    ItemPostResponseDto itemPostResponseDtoFrom(Item item);
+    ItemResponseDto itemResponseDtoFrom(Item item);
 
     ItemOptionDto itemOptionPostDtoFrom(ItemOption itemOption);
 

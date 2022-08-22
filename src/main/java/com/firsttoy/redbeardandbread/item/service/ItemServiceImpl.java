@@ -6,7 +6,6 @@ import com.firsttoy.redbeardandbread.item.entity.Item;
 import com.firsttoy.redbeardandbread.item.entity.ItemOption;
 import com.firsttoy.redbeardandbread.item.mapper.ItemMapper;
 import com.firsttoy.redbeardandbread.item.repository.ItemRepository;
-import com.firsttoy.redbeardandbread.utils.CustomBeanUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,8 +26,13 @@ public class ItemServiceImpl implements ItemService {
     public Item updateItem(Item source) {
         Item entity = findById(source.getItemId());
 
-//        return itemRepository.save(updatedItem);
-        return null;
+        itemMapper.updateItemFromSource(entity, source);
+
+        for (int i = 0; i < entity.getItemOptions().size(); i++) {
+            itemMapper.updateItemOptionFromSource(entity.getItemOptions().get(i), source.getItemOptions().get(i));
+        }
+
+        return itemRepository.save(entity);
     }
 
     public void verifyExistence(String itemCode) {
