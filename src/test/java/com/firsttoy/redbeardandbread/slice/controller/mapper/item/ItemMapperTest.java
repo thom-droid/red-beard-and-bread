@@ -10,9 +10,6 @@ import com.firsttoy.redbeardandbread.utils.CustomBeanUtils;
 import com.firsttoy.redbeardandbread.utils.StubbingUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.stubbing.Stubbing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -128,9 +125,10 @@ public class ItemMapperTest {
                 .build();
 
         // when
-        itemMapper.updateItemFromPatchDto(entity, itemPatchDto);
+        Item source = itemMapper.itemFrom(itemPatchDto);
+        itemMapper.updateItemFromSource(entity, source);
         for (int i = 0; i < entity.getItemOptions().size(); i++) {
-            itemMapper.updateItemOptionFromDto(entity.getItemOptions().get(i), itemPatchDto.getItemOptions().get(i));
+            itemMapper.updateItemOptionFromSource(entity.getItemOptions().get(i), source.getItemOptions().get(i));
         }
 
         // then

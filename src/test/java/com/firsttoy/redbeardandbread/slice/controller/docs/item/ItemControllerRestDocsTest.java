@@ -3,7 +3,7 @@ package com.firsttoy.redbeardandbread.slice.controller.docs.item;
 import com.firsttoy.redbeardandbread.item.controller.ItemController;
 import com.firsttoy.redbeardandbread.item.dto.request.ItemOptionDto;
 import com.firsttoy.redbeardandbread.item.dto.request.ItemPostDto;
-import com.firsttoy.redbeardandbread.item.dto.response.ItemPostResponseDto;
+import com.firsttoy.redbeardandbread.item.dto.response.ItemResponseDto;
 import com.firsttoy.redbeardandbread.item.entity.Item;
 import com.firsttoy.redbeardandbread.item.mapper.ItemMapper;
 import com.firsttoy.redbeardandbread.item.repository.ItemRepository;
@@ -72,7 +72,7 @@ public class ItemControllerRestDocsTest {
 
         List<ItemOptionDto> optionPostDtos = List.of(optionPostDto, optionPostDto1);
 
-        ItemPostResponseDto responseDto = ItemPostResponseDto.builder()
+        ItemResponseDto responseDto = ItemResponseDto.builder()
                 .itemId(1L)
                 .name("Plain Croissant")
                 .title("쫀딕쫀딕 버터향이 구수한 갓 구운 끄로아상")
@@ -90,7 +90,7 @@ public class ItemControllerRestDocsTest {
 
         given(itemMapper.itemFrom(Mockito.any(ItemPostDto.class))).willReturn(Mockito.mock(Item.class));
         given(itemService.createItem(Mockito.any(Item.class))).willReturn(Mockito.mock(Item.class));
-        given(itemMapper.itemPostResponseDtoFrom(Mockito.any(Item.class))).willReturn(responseDto);
+        given(itemMapper.itemResponseDtoFrom(Mockito.any(Item.class))).willReturn(responseDto);
 
         ItemPostDto requestDto =
                 ItemPostDto.builder()
@@ -114,7 +114,7 @@ public class ItemControllerRestDocsTest {
                                 .content(request)
                 );
 
-        verify(itemMapper).itemPostResponseDtoFrom(Mockito.any(Item.class));
+        verify(itemMapper).itemResponseDtoFrom(Mockito.any(Item.class));
 
         resultActions
                 .andExpect(status().isCreated())

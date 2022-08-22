@@ -38,15 +38,15 @@ public class Item extends Auditable {
     private String descriptionImage;
 
     @Column(nullable = false)
-    private int price;
+    private Integer price;
 
     @Setter
     @Column(nullable = false)
-    private int stock;
+    private Integer stock;
 
     @Setter
     @Column(nullable = false)
-    private int point;
+    private Integer point;
 
     @Column(nullable = false, updatable = false)
     @Enumerated(EnumType.STRING)

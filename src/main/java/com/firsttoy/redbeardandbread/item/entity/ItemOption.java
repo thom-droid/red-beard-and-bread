@@ -21,7 +21,7 @@ public class ItemOption {
 
     @Setter
     @Column(nullable = false)
-    private int price;
+    private Integer price;
 
     @Setter
     @ManyToOne
