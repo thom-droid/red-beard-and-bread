@@ -2,9 +2,11 @@ package com.firsttoy.redbeardandbread.slice.controller.docs.item;
 
 import com.firsttoy.redbeardandbread.item.controller.ItemController;
 import com.firsttoy.redbeardandbread.item.dto.request.ItemOptionDto;
+import com.firsttoy.redbeardandbread.item.dto.request.ItemPatchDto;
 import com.firsttoy.redbeardandbread.item.dto.request.ItemPostDto;
 import com.firsttoy.redbeardandbread.item.dto.response.ItemResponseDto;
 import com.firsttoy.redbeardandbread.item.entity.Item;
+import com.firsttoy.redbeardandbread.item.entity.ItemOption;
 import com.firsttoy.redbeardandbread.item.mapper.ItemMapper;
 import com.firsttoy.redbeardandbread.item.repository.ItemRepository;
 import com.firsttoy.redbeardandbread.item.service.ItemService;
@@ -86,7 +88,6 @@ public class ItemControllerRestDocsTest {
                 .status(Item.SaleStatus.ON_SALE)
                 .itemOptions(optionPostDtos)
                 .build();
-
 
         given(itemMapper.itemFrom(Mockito.any(ItemPostDto.class))).willReturn(Mockito.mock(Item.class));
         given(itemService.createItem(Mockito.any(Item.class))).willReturn(Mockito.mock(Item.class));
@@ -170,6 +171,55 @@ public class ItemControllerRestDocsTest {
     @DisplayName("RestDocs -> Update item")
     @Test
     public void givenItemPatchDto_whenPatchRequested_thenUpdatedItemReturn() {
-        
+        //given
+
+        ItemOptionDto optionDto = ItemOptionDto.builder()
+                .itemId(1L)
+                .name("size up")
+                .price(500)
+                .build();
+
+        ItemOptionDto optionDto1 = ItemOptionDto.builder()
+                .itemId(2L)
+                .name("update request 2")
+                .price(1500)
+                .build();
+
+        List<ItemOptionDto> optionPostDtos = List.of(optionDto, optionDto1);
+
+        ItemResponseDto responseDto = ItemResponseDto.builder()
+                .itemId(1L)
+                .name("Plain Croissant")
+                .title("쫀딕쫀딕 버터향이 구수한 갓 구운 끄로아상")
+                .thumbnail("thumbnail.png")
+                .descriptionImage("description.png")
+                .code("PCRI")
+                .price(5000)
+                .stock(100)
+                .point(50)
+                .category(Item.Category.BREAD)
+                .status(Item.SaleStatus.ON_SALE)
+                .itemOptions(optionPostDtos)
+                .build();
+
+        willDoNothing().given(itemMapper.itemFrom(Mockito.any(ItemPatchDto.class)));
+        willDoNothing().given(itemService.updateItem(Mockito.any(Item.class)));
+        given(itemMapper.itemResponseDtoFrom(Mockito.any(Item.class))).willReturn(responseDto);
+
+        ItemOptionDto requestOptionDto =
+                ItemOptionDto.builder()
+                        .itemId(1L)
+                        .price(1500)
+                        .build();
+
+        ItemOptionDto requestOptionDto1 =
+                ItemOptionDto.builder()
+                        .itemId(2L)
+                        .name("update request 2")
+                        .build();
+
+        ItemPatchDto requestDto =
+                ItemPatchDto.builder().build();
+
     }
 }
