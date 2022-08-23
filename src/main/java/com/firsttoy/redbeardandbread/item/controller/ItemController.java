@@ -17,7 +17,7 @@ import javax.validation.Valid;
 
 @Validated
 @AllArgsConstructor
-@RequestMapping("/item")
+@RequestMapping("/api/v1/items")
 @RestController
 public class ItemController {
 

@@ -77,13 +77,13 @@ public class ItemMapperTest {
         // descriptionImage is set as null to test if null value strategy is applied in mapper
         ItemOptionDto itemOptionDto =
                 ItemOptionDto.builder()
-                        .itemId(1L)
+                        .itemOptionId(1L)
                         .price(1500)
                         .build();
 
         ItemOptionDto itemOptionDto1 =
                 ItemOptionDto.builder()
-                        .itemId(2L)
+                        .itemOptionId(2L)
                         .name("additional butter")
                         .build();
 

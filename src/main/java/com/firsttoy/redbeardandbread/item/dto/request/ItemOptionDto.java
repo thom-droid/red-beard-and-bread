@@ -13,7 +13,7 @@ import javax.validation.constraints.NotEmpty;
 @AllArgsConstructor
 public class ItemOptionDto {
 
-    private Long itemId;
+    private Long itemOptionId;
 
     @NotEmpty
     private String name;
