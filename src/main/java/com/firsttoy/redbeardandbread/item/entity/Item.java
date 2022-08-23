@@ -33,17 +33,20 @@ public class Item extends Auditable {
     @Column(nullable = false)
     private String thumbnail;
 
+    @Setter
     @Column(nullable = false)
     private String descriptionImage;
 
     @Column(nullable = false)
-    private int price;
+    private Integer price;
 
+    @Setter
     @Column(nullable = false)
-    private int stock;
+    private Integer stock;
 
+    @Setter
     @Column(nullable = false)
-    private int point;
+    private Integer point;
 
     @Column(nullable = false, updatable = false)
     @Enumerated(EnumType.STRING)
@@ -69,7 +72,7 @@ public class Item extends Auditable {
     private SpecialOffer specialOffer;
 
     @Builder.Default
-    @ManyToMany(mappedBy = "items")
+    @ManyToMany(mappedBy = "items", fetch = FetchType.LAZY)
     private Set<User> users = new HashSet<>();
 
     @Builder.Default

@@ -1,6 +1,6 @@
 package com.firsttoy.redbeardandbread.item.dto.response;
 
-import com.firsttoy.redbeardandbread.item.dto.request.ItemOptionPostDto;
+import com.firsttoy.redbeardandbread.item.dto.request.ItemOptionDto;
 import com.firsttoy.redbeardandbread.item.entity.Item;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ItemPostResponseDto {
+public class ItemResponseDto {
 
     private long itemId;
     private String name;
@@ -29,6 +29,6 @@ public class ItemPostResponseDto {
     private Item.SaleStatus status;
 
     @Builder.Default
-    private List<ItemOptionPostDto> itemOptions = new ArrayList<>();
+    private List<ItemOptionDto> itemOptions = new ArrayList<>();
 
 }

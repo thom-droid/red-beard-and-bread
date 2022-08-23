@@ -11,11 +11,13 @@ import javax.validation.constraints.NotEmpty;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ItemOptionPostDto {
+public class ItemOptionDto {
+
+    private Long itemOptionId;
 
     @NotEmpty
     private String name;
 
     @NotEmpty
-    private int price;
+    private Integer price;
 }

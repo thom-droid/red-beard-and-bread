@@ -51,5 +51,5 @@ public class ItemPostDto {
     private Item.Category category;
 
     @Builder.Default
-    private List<ItemOptionPostDto> itemOptions = new ArrayList<>();
+    private List<ItemOptionDto> itemOptions = new ArrayList<>();
 }
